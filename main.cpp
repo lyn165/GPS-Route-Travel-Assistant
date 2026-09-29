@@ -1,10 +1,12 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
 
     double distance;
     int transportChoice,trafficChoice;
+    double averageSpeed,estimatedTime;
     string transport,traffic;
 
     //TOPIC
@@ -33,15 +35,19 @@ int main(){
     switch(transportChoice){
         case 1:
             transport = "Car";
+            averageSpeed = 60;
             break;
         case 2:
             transport = "Motorcycle";
+            averageSpeed = 50;
             break;
         case 3:
             transport = "Walking";
+            averageSpeed = 5;
             break;
         default:
             transport = "Invalid";
+            averageSpeed = 0;
             cout << "Invalid tranportation choice." << endl;
             break;
     }
@@ -71,11 +77,23 @@ int main(){
             break;
     }
 
+    //CALCULATE BASIC TRAVEL TIME
+    estimatedTime = distance/averageSpeed;
+
+    //ADJUST TIME ACCORDING TRAFFIC CONDITION
+    if (trafficChoice==2){
+        estimatedTime = estimatedTime*1.25;
+    }
+    else if (trafficChoice==3){
+        estimatedTime = estimatedTime*1.5;
+    }
+
     //PRINT INFORMATION
-    cout << "\n========== TRAVEL INFORMATION ==========" << endl;
+    cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
     cout << "Distance: " << distance << "km" << endl;
     cout << "Transportation: " << transport << endl;
     cout << "Traffic Condition: " << traffic << endl;
+    cout << "Estimated Travel Time: " << estimatedTime*60 << " minutes" << endl;
 
     return 0;
 }
