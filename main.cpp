@@ -4,8 +4,8 @@ using namespace std;
 int main(){
 
     double distance;
-    int transportChoice;
-    string transport;
+    int transportChoice,trafficChoice;
+    string transport,traffic;
 
     //TOPIC
     cout << "========================================" << endl;
@@ -29,7 +29,7 @@ int main(){
     cout << "\nEnter your choice(1-3): " << endl;
     cin >> transportChoice;
 
-    //SWITCH
+    //SWITCH for TRANSPORT CHOICE
     switch(transportChoice){
         case 1:
             transport = "Car";
@@ -46,10 +46,36 @@ int main(){
             break;
     }
 
+    //ASK FOR TRAFFIC CONDITION
+    cout << "\nSelect traffic condition: " << endl;
+    cout << "1.Light Traffic" << endl;
+    cout << "2.Moderate Traffic" << endl;
+    cout << "3.Heavy Traffic" << endl;
+    cout << "\nEnter your choice(1-3): " << endl;
+    cin >> trafficChoice;
+
+    //SWITCH for TRAFFIC CHOICE
+    switch(trafficChoice){
+        case 1:
+            traffic = "Light Traffic";
+            break;
+        case 2:
+            traffic = "Moderate Traffic";
+            break;
+        case 3:
+            traffic = "Heavy Traffic";
+            break;
+        default:
+            traffic = "Invalid";
+            cout << "Invalid traffic condition." << endl;
+            break;
+    }
+
     //PRINT INFORMATION
     cout << "\n========== TRAVEL INFORMATION ==========" << endl;
     cout << "Distance: " << distance << "km" << endl;
     cout << "Transportation: " << transport << endl;
+    cout << "Traffic Condition: " << traffic << endl;
 
     return 0;
 }
