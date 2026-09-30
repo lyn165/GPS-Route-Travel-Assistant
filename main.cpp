@@ -7,7 +7,7 @@ int main(){
     double distance;
     int transportChoice,trafficChoice;
     double averageSpeed,estimatedTime;
-    string transport,traffic;
+    string transport,traffic,recommendedRoute,navigationAdvice;
 
     //TOPIC
     cout << "========================================" << endl;
@@ -77,6 +77,20 @@ int main(){
             break;
     }
 
+    //RECOMMENDATION BASED ON TRAFFIC CONDITION
+    if(trafficChoice==1){
+        recommendedRoute = "Main Route";
+        navigationAdvice = "Traffic is light right now. Continue usinng the main route.";
+    }
+    if(trafficChoice==2){
+        recommendedRoute = "Main Route";
+        navigationAdvice = "Moderate traffic detected but expect some delays.";
+    }
+    else if(trafficChoice==3){
+        recommendedRoute = "Alternative Route";
+        navigationAdvice = "Heavy traffic detected. Let's consider avoiding busy roads.";
+    }
+
     //CALCULATE BASIC TRAVEL TIME
     estimatedTime = distance/averageSpeed;
 
@@ -93,7 +107,9 @@ int main(){
     cout << "Distance: " << distance << "km" << endl;
     cout << "Transportation: " << transport << endl;
     cout << "Traffic Condition: " << traffic << endl;
-    cout << "Estimated Travel Time: " << estimatedTime*60 << " minutes" << endl;
+    cout << "\nEstimated Travel Time: " << estimatedTime*60 << " minutes" << endl;
+    cout << "Recommended Route: " << recommendedRoute << endl;
+    cout << "Navigation Advice: " << navigationAdvice << endl;
 
     return 0;
 }
