@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -19,8 +20,10 @@ int getTrafficChoice();
 
 double getDistance(int start, int destination);
 double getSpeed(int transportChoice);
+double getFuelEfficiency(int transportChoice);
 double calculateTravelTime(double distance, double averageSpeed);
 double adjustTravelTime(double estimatedTime, int trafficChoice);
+double calculateFuelCost(double distance, int transportChoice);
 
 string getLocationName(int location);
 string getTransportName(int transportChoice);
@@ -467,6 +470,32 @@ double getSpeed(int transportChoice)
 
 
 // ========================================
+// Get Fuel Efficiency
+// ========================================
+
+double getFuelEfficiency(int transportChoice)
+{
+    switch (transportChoice)
+    {
+        case 1:
+            return 15.0;
+
+        case 2:
+            return 35.0;
+
+        case 3:
+            return 0.0;
+
+        case 4:
+            return 0.0;
+
+        default:
+            return 0.0;
+    }
+}
+
+
+// ========================================
 // Calculate Basic Travel Time
 // ========================================
 
@@ -496,6 +525,27 @@ double adjustTravelTime(double estimatedTime, int trafficChoice)
 
 
 // ========================================
+// Calculate Travel Cost
+// ========================================
+
+double calculateFuelCost(double distance, int transportChoice)
+{
+    const double fuelPrice = 2.05;
+
+    double fuelEfficiency = getFuelEfficiency(transportChoice);
+
+    if (fuelEfficiency == 0.0)
+    {
+        return 0.0;
+    }
+
+    double fuelUsed = distance / fuelEfficiency;
+
+    return fuelUsed * fuelPrice;
+}
+
+
+// ========================================
 // Plan Route
 // ========================================
 
@@ -509,6 +559,7 @@ void planRoute()
     double distance;
     double averageSpeed;
     double estimatedTime;
+    double travelCost;
 
     string transport;
     string traffic;
@@ -584,6 +635,11 @@ void planRoute()
     estimatedTime = adjustTravelTime(estimatedTime, trafficChoice);
 
 
+    // CALCULATE TRAVEL COST
+
+    travelCost = calculateFuelCost(distance, transportChoice);
+
+
     // PRINT INFORMATION
 
     cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
@@ -593,9 +649,14 @@ void planRoute()
     cout << "Transportation: " << transport << endl;
     cout << "Traffic Condition: " << traffic << endl;
 
+    cout << fixed << setprecision(2);
+
     cout << "\nEstimated Travel Time: "
          << estimatedTime * 60
          << " minutes" << endl;
+
+    cout << "Estimated Travel Cost: RM "
+         << travelCost << endl;
 
     cout << "Recommended Route: "
          << recommendedRoute << endl;
