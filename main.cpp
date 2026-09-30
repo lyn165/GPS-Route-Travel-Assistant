@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -89,12 +91,22 @@ int main()
 void displayWelcome()
 {
     cout << "========================================" << endl;
-    cout << "GPS ROUTE & TRAVEL ASSISTANT" << endl;
+    cout << "     GPS ROUTE & TRAVEL ASSISTANT" << endl;
     cout << "========================================" << endl;
 
-    cout << "Welcome to the GPS Route & Travel Assistant!" << endl;
-    cout << "This program helps estimate your travel time" << endl;
-    cout << "and provides basic navigation advice to you!" << endl;
+    cout << "Welcome to the GPS Route & Travel Assistant!"
+         << endl;
+
+    cout << "This program helps estimate your travel time,"
+         << endl;
+
+    cout << "travel cost, and provides basic navigation"
+         << endl;
+
+    cout << "advice based on your selected route."
+         << endl;
+
+    cout << "========================================" << endl;
 
     cout << endl;
 }
@@ -107,7 +119,7 @@ void displayWelcome()
 void displayMenu()
 {
     cout << "--------------- MAIN MENU ---------------" << endl;
-    cout << "1. Plan a Route" << endl;
+    cout << "1. Plan a Route & Estimate Cost" << endl;
     cout << "2. View Location Information" << endl;
     cout << "3. Exit" << endl;
     cout << "------------------------------------------" << endl;
@@ -132,7 +144,9 @@ int getMenuChoice()
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Invalid input. Please enter a number." << endl;
+            cout << "Invalid input. Please enter a number."
+                 << endl;
+
             continue;
         }
 
@@ -141,7 +155,8 @@ int getMenuChoice()
             return choice;
         }
 
-        cout << "Invalid choice. Please enter 1, 2, or 3." << endl;
+        cout << "Invalid choice. Please enter 1, 2, or 3."
+             << endl;
     }
 }
 
@@ -178,7 +193,9 @@ int getLocationChoice()
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Invalid input. Please enter a number." << endl;
+            cout << "Invalid input. Please enter a number."
+                 << endl;
+
             continue;
         }
 
@@ -187,7 +204,8 @@ int getLocationChoice()
             return choice;
         }
 
-        cout << "Invalid location. Please enter 1 to 4." << endl;
+        cout << "Invalid location. Please enter 1 to 4."
+             << endl;
     }
 }
 
@@ -216,7 +234,9 @@ int getTransportChoice()
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Invalid input. Please enter a number." << endl;
+            cout << "Invalid input. Please enter a number."
+                 << endl;
+
             continue;
         }
 
@@ -225,7 +245,8 @@ int getTransportChoice()
             return transportChoice;
         }
 
-        cout << "Invalid transport mode. Please enter 1 to 4." << endl;
+        cout << "Invalid transport mode. Please enter 1 to 4."
+             << endl;
     }
 }
 
@@ -253,7 +274,9 @@ int getTrafficChoice()
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Invalid input. Please enter a number." << endl;
+            cout << "Invalid input. Please enter a number."
+                 << endl;
+
             continue;
         }
 
@@ -262,7 +285,8 @@ int getTrafficChoice()
             return trafficChoice;
         }
 
-        cout << "Invalid traffic condition. Please enter 1 to 3." << endl;
+        cout << "Invalid traffic condition. Please enter 1 to 3."
+             << endl;
     }
 }
 
@@ -610,17 +634,20 @@ void displayLocationInformation()
     cout << "========== LOCATION INFORMATION ==========" << endl;
 
     cout << "\n1. MMU Cyberjaya" << endl;
-    cout << "   Multimedia University campus in Cyberjaya." << endl;
+    cout << "   Multimedia University campus in Cyberjaya."
+         << endl;
     cout << "   It is used as the main starting point in this simulation."
          << endl;
 
     cout << "\n2. IOI City Mall" << endl;
     cout << "   A major shopping mall near Putrajaya." << endl;
-    cout << "   It is included as a common travel destination." << endl;
+    cout << "   It is included as a common travel destination."
+         << endl;
 
     cout << "\n3. Putrajaya" << endl;
     cout << "   The administrative centre of Malaysia." << endl;
-    cout << "   It contains government buildings and landmarks." << endl;
+    cout << "   It contains government buildings and landmarks."
+         << endl;
 
     cout << "\n4. KLCC" << endl;
     cout << "   A major commercial and tourist area in Kuala Lumpur."
@@ -628,7 +655,8 @@ void displayLocationInformation()
     cout << "   It is the furthest destination in this simulation."
          << endl;
 
-    cout << "\n===========================================" << endl;
+    cout << "\n==========================================="
+         << endl;
 }
 
 
@@ -656,6 +684,9 @@ void planRoute()
 
     // ASK FOR CURRENT LOCATION
 
+    cout << "\n========== PLAN YOUR ROUTE =========="
+         << endl;
+
     cout << "\nCurrent Location" << endl;
 
     displayLocations();
@@ -677,8 +708,10 @@ void planRoute()
     if (start == destination)
     {
         cout << endl;
+
         cout << "Your current location and destination are the same."
              << endl;
+
         cout << "No travel is required." << endl;
 
         return;
@@ -741,11 +774,27 @@ void planRoute()
     );
 
 
+    // SIMULATE GPS CALCULATION
+
+    cout << "\nCalculating route..." << endl;
+
+    this_thread::sleep_for(
+        chrono::seconds(2)
+    );
+
+    cout << "Route calculated successfully!" << endl;
+
+    this_thread::sleep_for(
+        chrono::seconds(1)
+    );
+
+
     // PRINT INFORMATION
 
     cout << fixed << setprecision(2);
 
-    cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
+    cout << "\n========== GPS TRAVEL RESULT =========="
+         << endl;
 
     cout << "From: "
          << getLocationName(start)
@@ -790,5 +839,6 @@ void planRoute()
          << navigationAdvice
          << endl;
 
-    cout << "========================================" << endl;
+    cout << "========================================"
+         << endl;
 }
