@@ -30,7 +30,8 @@ string getLocationName(int location);
 string getTransportName(int transportChoice);
 string getTrafficName(int trafficChoice);
 string getRecommendedRoute(int trafficChoice);
-string getNavigationAdvice(int trafficChoice);
+string getNavigationAdvice(int trafficChoice, double distance,
+                           int transportChoice);
 
 void planRoute();
 
@@ -383,7 +384,7 @@ string getRecommendedRoute(int trafficChoice)
     }
     else if (trafficChoice == 2)
     {
-        return "Main Route";
+        return "Main Route - Expect Minor Delays";
     }
     else
     {
@@ -396,20 +397,47 @@ string getRecommendedRoute(int trafficChoice)
 // Get Navigation Advice
 // ========================================
 
-string getNavigationAdvice(int trafficChoice)
+string getNavigationAdvice(int trafficChoice, double distance,
+                            int transportChoice)
 {
-    if (trafficChoice == 1)
+    if (trafficChoice == 3)
     {
-        return "Traffic is light right now. Continue usinng the main route.";
+        if (distance >= 25.0)
+        {
+            return "Heavy traffic detected on a long journey. "
+                   "Consider using the alternative route and allow "
+                   "extra travel time.";
+        }
+
+        return "Heavy traffic detected. Consider avoiding busy "
+               "roads and using the alternative route.";
     }
-    else if (trafficChoice == 2)
+
+    if (trafficChoice == 2)
     {
-        return "Moderate traffic detected but expect some delays.";
+        if (distance >= 25.0)
+        {
+            return "Moderate traffic detected on a long journey. "
+                   "Expect minor delays and allow extra travel time.";
+        }
+
+        return "Moderate traffic detected. Expect some delays "
+               "while using the main route.";
     }
-    else
+
+    if (transportChoice == 4 && distance >= 10.0)
     {
-        return "Heavy traffic detected. Let's consider avoiding busy roads.";
+        return "The journey is relatively long for walking. "
+               "Consider another transportation mode.";
     }
+
+    if (transportChoice == 3)
+    {
+        return "Traffic is light. Public transport is suitable "
+               "for this journey.";
+    }
+
+    return "Traffic is light right now. Continue using the main route.";
 }
 
 
@@ -660,7 +688,12 @@ void planRoute()
     // RECOMMENDATION BASED ON TRAFFIC CONDITION
 
     recommendedRoute = getRecommendedRoute(trafficChoice);
-    navigationAdvice = getNavigationAdvice(trafficChoice);
+
+    navigationAdvice = getNavigationAdvice(
+        trafficChoice,
+        distance,
+        transportChoice
+    );
 
 
     // CALCULATE BASIC TRAVEL TIME
