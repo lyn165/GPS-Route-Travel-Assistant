@@ -190,12 +190,12 @@ int getTransportChoice()
     cout << "\nSelect transportation mode: " << endl;
     cout << "1.Car" << endl;
     cout << "2.Motorcycle" << endl;
-    cout << "3.Walking" << endl;
-    cout << "\nEnter your choice(1-3): " << endl;
+    cout << "3.Public Transport" << endl;
+    cout << "4.Walking" << endl;
 
     while (true)
     {
-        cout << "Enter your choice: ";
+        cout << "\nEnter your choice(1-4): " << endl;
         cin >> transportChoice;
 
         if (cin.fail())
@@ -207,12 +207,12 @@ int getTransportChoice()
             continue;
         }
 
-        if (transportChoice >= 1 && transportChoice <= 3)
+        if (transportChoice >= 1 && transportChoice <= 4)
         {
             return transportChoice;
         }
 
-        cout << "Invalid transport mode. Please enter 1 to 3." << endl;
+        cout << "Invalid transport mode. Please enter 1 to 4." << endl;
     }
 }
 
@@ -296,6 +296,9 @@ string getTransportName(int transportChoice)
             return "Motorcycle";
 
         case 3:
+            return "Public Transport";
+
+        case 4:
             return "Walking";
 
         default:
@@ -452,6 +455,9 @@ double getSpeed(int transportChoice)
             return 50.0;
 
         case 3:
+            return 40.0;
+
+        case 4:
             return 5.0;
 
         default:
