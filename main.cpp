@@ -12,6 +12,7 @@ using namespace std;
 void displayWelcome();
 void displayMenu();
 void displayLocations();
+void displayLocationInformation();
 
 int getMenuChoice();
 int getLocationChoice();
@@ -59,6 +60,10 @@ int main()
                 break;
 
             case 2:
+                displayLocationInformation();
+                break;
+
+            case 3:
                 cout << "Thank you for using GPS Route & Travel Assistant!"
                      << endl;
                 cout << "Have a safe journey!" << endl;
@@ -67,7 +72,7 @@ int main()
 
         cout << endl;
 
-    } while (choice != 2);
+    } while (choice != 3);
 
     return 0;
 }
@@ -99,7 +104,8 @@ void displayMenu()
 {
     cout << "--------------- MAIN MENU ---------------" << endl;
     cout << "1. Plan a Route" << endl;
-    cout << "2. Exit" << endl;
+    cout << "2. View Location Information" << endl;
+    cout << "3. Exit" << endl;
     cout << "------------------------------------------" << endl;
 }
 
@@ -126,12 +132,12 @@ int getMenuChoice()
             continue;
         }
 
-        if (choice >= 1 && choice <= 2)
+        if (choice >= 1 && choice <= 3)
         {
             return choice;
         }
 
-        cout << "Invalid choice. Please enter 1 or 2." << endl;
+        cout << "Invalid choice. Please enter 1 to 3." << endl;
     }
 }
 
@@ -147,6 +153,38 @@ void displayLocations()
     cout << "2. IOI City Mall" << endl;
     cout << "3. Putrajaya" << endl;
     cout << "4. KLCC" << endl;
+}
+
+
+// ========================================
+// Display Location Information
+// ========================================
+
+void displayLocationInformation()
+{
+    cout << "========== LOCATION INFORMATION ==========" << endl;
+
+    cout << "\n1. MMU Cyberjaya" << endl;
+    cout << "   Multimedia University campus located in Cyberjaya." << endl;
+    cout << "   It is one of the main starting points in this program."
+         << endl;
+
+    cout << "\n2. IOI City Mall" << endl;
+    cout << "   A major shopping mall located near Putrajaya." << endl;
+    cout << "   It is included as a common travel destination." << endl;
+
+    cout << "\n3. Putrajaya" << endl;
+    cout << "   The administrative centre of Malaysia." << endl;
+    cout << "   It is known for government buildings and landmarks."
+         << endl;
+
+    cout << "\n4. KLCC" << endl;
+    cout << "   A major commercial and tourist area in Kuala Lumpur."
+         << endl;
+    cout << "   It is the furthest destination in this simulation."
+         << endl;
+
+    cout << "\n==========================================" << endl;
 }
 
 
