@@ -590,7 +590,7 @@ double getFuelEfficiency(int transportChoice)
 
 // ========================================
 // Calculate Travel Cost
-// Assumed fuel price = RM2.05 per litre
+// Assumed fuel price = RM4.57 per litre
 // Public Transport = RM2.00 per hour
 // ========================================
 
@@ -600,7 +600,7 @@ double calculateFuelCost(
 )
 {
     double fuelEfficiency;
-    double fuelPrice = 2.05;
+    double fuelPrice = 4.57;
 
     if (transportChoice == 3)
     {
