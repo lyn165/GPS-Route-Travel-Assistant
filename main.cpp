@@ -170,8 +170,9 @@ void displayLocations()
     cout << "Available Locations:" << endl;
     cout << "1. MMU Cyberjaya" << endl;
     cout << "2. IOI City Mall" << endl;
-    cout << "3. Putrajaya" << endl;
+    cout << "3. TRX" << endl;
     cout << "4. KLCC" << endl;
+    cout << "5. Pasar Seni" << endl;
 }
 
 
@@ -199,12 +200,12 @@ int getLocationChoice()
             continue;
         }
 
-        if (choice >= 1 && choice <= 4)
+        if (choice >= 1 && choice <= 5)
         {
             return choice;
         }
 
-        cout << "Invalid location. Please enter 1 to 4."
+        cout << "Invalid location. Please enter 1 to 5."
              << endl;
     }
 }
@@ -306,10 +307,13 @@ string getLocationName(int location)
             return "IOI City Mall";
 
         case 3:
-            return "Putrajaya";
+            return "TRX";
 
         case 4:
             return "KLCC";
+
+        case 5:
+            return "Pasar Seni";
 
         default:
             return "Unknown";
@@ -453,64 +457,82 @@ string getNavigationAdvice(
 
 double getDistance(int start, int destination)
 {
-    if (start == destination)
+    int routeCode = start * 10 + destination;
+
+    switch (routeCode)
     {
-        return 0.0;
-    }
+        // From MMU Cyberjaya
+        case 12:
+            return 13.0;
 
-    // MMU Cyberjaya
-    if (start == 1)
-    {
-        if (destination == 2)
-            return 8.0;
+        case 13:
+            return 33.0;
 
-        if (destination == 3)
-            return 12.0;
-
-        if (destination == 4)
-            return 35.0;
-    }
-
-    // IOI City Mall
-    if (start == 2)
-    {
-        if (destination == 1)
-            return 8.0;
-
-        if (destination == 3)
-            return 6.0;
-
-        if (destination == 4)
-            return 28.0;
-    }
-
-    // Putrajaya
-    if (start == 3)
-    {
-        if (destination == 1)
-            return 12.0;
-
-        if (destination == 2)
-            return 6.0;
-
-        if (destination == 4)
-            return 30.0;
-    }
-
-    // KLCC
-    if (start == 4)
-    {
-        if (destination == 1)
+        case 14:
             return 35.0;
 
-        if (destination == 2)
+        case 15:
+            return 32.0;
+
+
+        // From IOI City Mall
+        case 21:
+            return 13.0;
+
+        case 23:
             return 28.0;
 
-        if (destination == 3)
-            return 30.0;
-    }
+        case 24:
+            return 31.0;
 
-    return 0.0;
+        case 25:
+            return 26.0;
+
+
+        // From TRX
+        case 31:
+            return 33.0;
+
+        case 32:
+            return 28.0;
+
+        case 34:
+            return 4.3;
+
+        case 35:
+            return 4.6;
+
+
+        // From KLCC
+        case 41:
+            return 35.0;
+
+        case 42:
+            return 31.0;
+
+        case 43:
+            return 4.3;
+
+        case 45:
+            return 6.3;
+
+
+        // From Pasar Seni
+        case 51:
+            return 32.0;
+
+        case 52:
+            return 26.0;
+
+        case 53:
+            return 4.6;
+
+        case 54:
+            return 6.3;
+
+        default:
+            return 0.0;
+    }
 }
 
 
@@ -523,7 +545,7 @@ double getSpeed(int transportChoice)
     switch (transportChoice)
     {
         case 1:
-            return 60.0;
+            return 65.0;
 
         case 2:
             return 50.0;
@@ -567,8 +589,9 @@ double getFuelEfficiency(int transportChoice)
 
 
 // ========================================
-// Calculate Fuel Cost
+// Calculate Travel Cost
 // Assumed fuel price = RM2.05 per litre
+// Public Transport = RM2.00 per hour
 // ========================================
 
 double calculateFuelCost(
@@ -578,6 +601,13 @@ double calculateFuelCost(
 {
     double fuelEfficiency;
     double fuelPrice = 2.05;
+
+    if (transportChoice == 3)
+    {
+        double averageSpeed = getSpeed(transportChoice);
+
+        return (distance / averageSpeed) * 2.00;
+    }
 
     fuelEfficiency = getFuelEfficiency(transportChoice);
 
@@ -631,7 +661,8 @@ double adjustTravelTime(
 
 void displayLocationInformation()
 {
-    cout << "========== LOCATION INFORMATION ==========" << endl;
+    cout << "========== LOCATION INFORMATION =========="
+         << endl;
 
     cout << "\n1. MMU Cyberjaya" << endl;
     cout << "   Multimedia University campus in Cyberjaya."
@@ -644,15 +675,22 @@ void displayLocationInformation()
     cout << "   It is included as a common travel destination."
          << endl;
 
-    cout << "\n3. Putrajaya" << endl;
-    cout << "   The administrative centre of Malaysia." << endl;
-    cout << "   It contains government buildings and landmarks."
+    cout << "\n3. TRX" << endl;
+    cout << "   A major commercial and financial area in Kuala Lumpur."
+         << endl;
+    cout << "   It is included as a major urban destination."
          << endl;
 
     cout << "\n4. KLCC" << endl;
     cout << "   A major commercial and tourist area in Kuala Lumpur."
          << endl;
-    cout << "   It is the furthest destination in this simulation."
+    cout << "   It is included as a major travel destination."
+         << endl;
+
+    cout << "\n5. Pasar Seni" << endl;
+    cout << "   A well-known cultural and transportation area in Kuala Lumpur."
+         << endl;
+    cout << "   It is included as a central urban destination."
          << endl;
 
     cout << "\n==========================================="
