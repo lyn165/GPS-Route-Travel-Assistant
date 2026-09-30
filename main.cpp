@@ -667,30 +667,31 @@ void displayLocationInformation()
     cout << "\n1. MMU Cyberjaya" << endl;
     cout << "   Multimedia University campus in Cyberjaya."
          << endl;
-    cout << "   It is used as the main starting point in this simulation."
+    cout << "   Where students study, rush assignments and survive deadlines."
          << endl;
 
     cout << "\n2. IOI City Mall" << endl;
-    cout << "   A major shopping mall near Putrajaya." << endl;
-    cout << "   It is included as a common travel destination."
+    cout << "   A popular shopping and entertainment destination in Putrajaya."
          << endl;
-
+    cout << "   A popular shopping mall in Putrajaya with many shops, restaurants and fun activities."
+         << endl;
+    
     cout << "\n3. TRX" << endl;
     cout << "   A major commercial and financial area in Kuala Lumpur."
          << endl;
-    cout << "   It is included as a major urban destination."
+    cout << "   A modern business, shopping and lifestyle district in Kuala Lumpur."
          << endl;
 
     cout << "\n4. KLCC" << endl;
     cout << "   A major commercial and tourist area in Kuala Lumpur."
          << endl;
-    cout << "   It is included as a major travel destination."
+    cout << "   A popular city area known for the Petronas Twin Towers."
          << endl;
 
     cout << "\n5. Pasar Seni" << endl;
     cout << "   A well-known cultural and transportation area in Kuala Lumpur."
          << endl;
-    cout << "   It is included as a central urban destination."
+    cout << "   A cultural area where you can explore local art, food and souvenirs.."
          << endl;
 
     cout << "\n==========================================="
