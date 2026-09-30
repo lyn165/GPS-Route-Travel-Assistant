@@ -12,6 +12,7 @@ void displayWelcome();
 void displayMenu();
 void displayLocations();
 
+int getMenuChoice();
 int getLocationChoice();
 int getTransportChoice();
 int getTrafficChoice();
@@ -92,7 +93,33 @@ void displayWelcome()
 
 void displayMenu()
 {
-    cout << "GPS ROUTE & TRAVEL ASSISTANT" << endl;
+    cout << "--------------- MAIN MENU ---------------" << endl;
+    cout << "1. Plan a Route" << endl;
+    cout << "2. Exit" << endl;
+    cout << "------------------------------------------" << endl;
+}
+
+
+// ========================================
+// Get Main Menu Choice
+// ========================================
+
+int getMenuChoice()
+{
+    int choice;
+
+    while (true)
+    {
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice >= 1 && choice <= 2)
+        {
+            return choice;
+        }
+
+        cout << "Invalid choice. Please enter 1 or 2." << endl;
+    }
 }
 
 
