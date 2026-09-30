@@ -30,8 +30,11 @@ string getLocationName(int location);
 string getTransportName(int transportChoice);
 string getTrafficName(int trafficChoice);
 string getRecommendedRoute(int trafficChoice);
-string getNavigationAdvice(int trafficChoice, double distance,
-                           int transportChoice);
+string getNavigationAdvice(
+    int trafficChoice,
+    double distance,
+    int transportChoice
+);
 
 void planRoute();
 
@@ -91,7 +94,7 @@ void displayWelcome()
 
     cout << "Welcome to the GPS Route & Travel Assistant!" << endl;
     cout << "This program helps estimate your travel time" << endl;
-    cout << "and provides basic navigation advice to U!" << endl;
+    cout << "and provides basic navigation advice to you!" << endl;
 
     cout << endl;
 }
@@ -138,7 +141,7 @@ int getMenuChoice()
             return choice;
         }
 
-        cout << "Invalid choice. Please enter 1 to 3." << endl;
+        cout << "Invalid choice. Please enter 1, 2, or 3." << endl;
     }
 }
 
@@ -154,38 +157,6 @@ void displayLocations()
     cout << "2. IOI City Mall" << endl;
     cout << "3. Putrajaya" << endl;
     cout << "4. KLCC" << endl;
-}
-
-
-// ========================================
-// Display Location Information
-// ========================================
-
-void displayLocationInformation()
-{
-    cout << "========== LOCATION INFORMATION ==========" << endl;
-
-    cout << "\n1. MMU Cyberjaya" << endl;
-    cout << "   Multimedia University campus located in Cyberjaya." << endl;
-    cout << "   It is one of the main starting points in this program."
-         << endl;
-
-    cout << "\n2. IOI City Mall" << endl;
-    cout << "   A major shopping mall located near Putrajaya." << endl;
-    cout << "   It is included as a common travel destination." << endl;
-
-    cout << "\n3. Putrajaya" << endl;
-    cout << "   The administrative centre of Malaysia." << endl;
-    cout << "   It is known for government buildings and landmarks."
-         << endl;
-
-    cout << "\n4. KLCC" << endl;
-    cout << "   A major commercial and tourist area in Kuala Lumpur."
-         << endl;
-    cout << "   It is the furthest destination in this simulation."
-         << endl;
-
-    cout << "\n==========================================" << endl;
 }
 
 
@@ -229,15 +200,15 @@ int getTransportChoice()
 {
     int transportChoice;
 
-    cout << "\nSelect transportation mode: " << endl;
-    cout << "1.Car" << endl;
-    cout << "2.Motorcycle" << endl;
-    cout << "3.Public Transport" << endl;
-    cout << "4.Walking" << endl;
+    cout << "\nSelect transportation mode:" << endl;
+    cout << "1. Car" << endl;
+    cout << "2. Motorcycle" << endl;
+    cout << "3. Public Transport" << endl;
+    cout << "4. Walking" << endl;
 
     while (true)
     {
-        cout << "\nEnter your choice(1-4): " << endl;
+        cout << "\nEnter your choice (1-4): ";
         cin >> transportChoice;
 
         if (cin.fail())
@@ -267,15 +238,14 @@ int getTrafficChoice()
 {
     int trafficChoice;
 
-    cout << "\nSelect traffic condition: " << endl;
-    cout << "1.Light Traffic" << endl;
-    cout << "2.Moderate Traffic" << endl;
-    cout << "3.Heavy Traffic" << endl;
-    cout << "\nEnter your choice(1-3): " << endl;
+    cout << "\nSelect traffic condition:" << endl;
+    cout << "1. Light Traffic" << endl;
+    cout << "2. Moderate Traffic" << endl;
+    cout << "3. Heavy Traffic" << endl;
 
     while (true)
     {
-        cout << "Enter your choice: ";
+        cout << "\nEnter your choice (1-3): ";
         cin >> trafficChoice;
 
         if (cin.fail())
@@ -395,49 +365,60 @@ string getRecommendedRoute(int trafficChoice)
 
 // ========================================
 // Get Navigation Advice
+// Considers traffic, distance and transport
 // ========================================
 
-string getNavigationAdvice(int trafficChoice, double distance,
-                            int transportChoice)
+string getNavigationAdvice(
+    int trafficChoice,
+    double distance,
+    int transportChoice
+)
 {
     if (trafficChoice == 3)
     {
-        if (distance >= 25.0)
+        if (distance >= 25)
         {
             return "Heavy traffic detected on a long journey. "
-                   "Consider using the alternative route and allow "
-                   "extra travel time.";
+                   "Consider using the alternative route and "
+                   "allow extra travel time.";
         }
-
-        return "Heavy traffic detected. Consider avoiding busy "
-               "roads and using the alternative route.";
+        else
+        {
+            return "Heavy traffic detected. Consider avoiding "
+                   "busy roads and using the alternative route.";
+        }
     }
-
-    if (trafficChoice == 2)
+    else if (trafficChoice == 2)
     {
-        if (distance >= 25.0)
+        if (distance >= 25)
         {
             return "Moderate traffic detected on a long journey. "
                    "Expect minor delays and allow extra travel time.";
         }
-
-        return "Moderate traffic detected. Expect some delays "
-               "while using the main route.";
+        else
+        {
+            return "Moderate traffic detected. Expect some delays "
+                   "while using the main route.";
+        }
     }
-
-    if (transportChoice == 4 && distance >= 10.0)
+    else
     {
-        return "The journey is relatively long for walking. "
-               "Consider another transportation mode.";
+        if (transportChoice == 4 && distance >= 10)
+        {
+            return "The journey is relatively long for walking. "
+                   "Consider another transportation mode.";
+        }
+        else if (transportChoice == 3)
+        {
+            return "Traffic is light. Public transport is suitable "
+                   "for this journey.";
+        }
+        else
+        {
+            return "Traffic is light right now. Continue using "
+                   "the main route.";
+        }
     }
-
-    if (transportChoice == 3)
-    {
-        return "Traffic is light. Public transport is suitable "
-               "for this journey.";
-    }
-
-    return "Traffic is light right now. Continue using the main route.";
 }
 
 
@@ -562,10 +543,37 @@ double getFuelEfficiency(int transportChoice)
 
 
 // ========================================
+// Calculate Fuel Cost
+// Assumed fuel price = RM2.05 per litre
+// ========================================
+
+double calculateFuelCost(
+    double distance,
+    int transportChoice
+)
+{
+    double fuelEfficiency;
+    double fuelPrice = 2.05;
+
+    fuelEfficiency = getFuelEfficiency(transportChoice);
+
+    if (fuelEfficiency > 0)
+    {
+        return (distance / fuelEfficiency) * fuelPrice;
+    }
+
+    return 0.0;
+}
+
+
+// ========================================
 // Calculate Basic Travel Time
 // ========================================
 
-double calculateTravelTime(double distance, double averageSpeed)
+double calculateTravelTime(
+    double distance,
+    double averageSpeed
+)
 {
     return distance / averageSpeed;
 }
@@ -575,7 +583,10 @@ double calculateTravelTime(double distance, double averageSpeed)
 // Adjust Travel Time According to Traffic
 // ========================================
 
-double adjustTravelTime(double estimatedTime, int trafficChoice)
+double adjustTravelTime(
+    double estimatedTime,
+    int trafficChoice
+)
 {
     if (trafficChoice == 2)
     {
@@ -591,23 +602,33 @@ double adjustTravelTime(double estimatedTime, int trafficChoice)
 
 
 // ========================================
-// Calculate Travel Cost
+// Display Location Information
 // ========================================
 
-double calculateFuelCost(double distance, int transportChoice)
+void displayLocationInformation()
 {
-    const double fuelPrice = 2.05;
+    cout << "========== LOCATION INFORMATION ==========" << endl;
 
-    double fuelEfficiency = getFuelEfficiency(transportChoice);
+    cout << "\n1. MMU Cyberjaya" << endl;
+    cout << "   Multimedia University campus in Cyberjaya." << endl;
+    cout << "   It is used as the main starting point in this simulation."
+         << endl;
 
-    if (fuelEfficiency == 0.0)
-    {
-        return 0.0;
-    }
+    cout << "\n2. IOI City Mall" << endl;
+    cout << "   A major shopping mall near Putrajaya." << endl;
+    cout << "   It is included as a common travel destination." << endl;
 
-    double fuelUsed = distance / fuelEfficiency;
+    cout << "\n3. Putrajaya" << endl;
+    cout << "   The administrative centre of Malaysia." << endl;
+    cout << "   It contains government buildings and landmarks." << endl;
 
-    return fuelUsed * fuelPrice;
+    cout << "\n4. KLCC" << endl;
+    cout << "   A major commercial and tourist area in Kuala Lumpur."
+         << endl;
+    cout << "   It is the furthest destination in this simulation."
+         << endl;
+
+    cout << "\n===========================================" << endl;
 }
 
 
@@ -698,40 +719,76 @@ void planRoute()
 
     // CALCULATE BASIC TRAVEL TIME
 
-    estimatedTime = calculateTravelTime(distance, averageSpeed);
+    estimatedTime = calculateTravelTime(
+        distance,
+        averageSpeed
+    );
 
 
     // ADJUST TIME ACCORDING TO TRAFFIC CONDITION
 
-    estimatedTime = adjustTravelTime(estimatedTime, trafficChoice);
+    estimatedTime = adjustTravelTime(
+        estimatedTime,
+        trafficChoice
+    );
 
 
     // CALCULATE TRAVEL COST
 
-    travelCost = calculateFuelCost(distance, transportChoice);
+    travelCost = calculateFuelCost(
+        distance,
+        transportChoice
+    );
 
 
     // PRINT INFORMATION
 
-    cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
-    cout << "From: " << getLocationName(start) << endl;
-    cout << "To: " << getLocationName(destination) << endl;
-    cout << "Distance: " << distance << "km" << endl;
-    cout << "Transportation: " << transport << endl;
-    cout << "Traffic Condition: " << traffic << endl;
-
     cout << fixed << setprecision(2);
+
+    cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
+
+    cout << "From: "
+         << getLocationName(start)
+         << endl;
+
+    cout << "To: "
+         << getLocationName(destination)
+         << endl;
+
+    cout << "Distance: "
+         << distance
+         << " km"
+         << endl;
+
+    cout << "Transportation: "
+         << transport
+         << endl;
+
+    cout << "Average Speed: "
+         << averageSpeed
+         << " km/h"
+         << endl;
+
+    cout << "Traffic Condition: "
+         << traffic
+         << endl;
 
     cout << "\nEstimated Travel Time: "
          << estimatedTime * 60
-         << " minutes" << endl;
+         << " minutes"
+         << endl;
 
     cout << "Estimated Travel Cost: RM "
-         << travelCost << endl;
+         << travelCost
+         << endl;
 
     cout << "Recommended Route: "
-         << recommendedRoute << endl;
+         << recommendedRoute
+         << endl;
 
     cout << "Navigation Advice: "
-         << navigationAdvice << endl;
+         << navigationAdvice
+         << endl;
+
+    cout << "========================================" << endl;
 }
