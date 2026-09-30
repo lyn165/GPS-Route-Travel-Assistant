@@ -528,6 +528,19 @@ void planRoute()
     destination = getLocationChoice();
 
 
+    // CHECK SAME LOCATION
+
+    if (start == destination)
+    {
+        cout << endl;
+        cout << "Your current location and destination are the same."
+             << endl;
+        cout << "No travel is required." << endl;
+
+        return;
+    }
+
+
     // GET DISTANCE
 
     distance = getDistance(start, destination);
