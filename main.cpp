@@ -18,6 +18,7 @@ int getTransportChoice();
 int getTrafficChoice();
 
 double getDistance(int start, int destination);
+double getSpeed(int transportChoice);
 double calculateTravelTime(double distance, double averageSpeed);
 double adjustTravelTime(double estimatedTime, int trafficChoice);
 
@@ -375,6 +376,29 @@ double getDistance(int start, int destination)
 
 
 // ========================================
+// Get Average Speed
+// ========================================
+
+double getSpeed(int transportChoice)
+{
+    switch (transportChoice)
+    {
+        case 1:
+            return 60.0;
+
+        case 2:
+            return 50.0;
+
+        case 3:
+            return 5.0;
+
+        default:
+            return 0.0;
+    }
+}
+
+
+// ========================================
 // Calculate Basic Travel Time
 // ========================================
 
@@ -451,28 +475,7 @@ void planRoute()
 
     transportChoice = getTransportChoice();
 
-
-    // SET TRANSPORTATION INFORMATION
-
-    switch (transportChoice)
-    {
-        case 1:
-            averageSpeed = 60;
-            break;
-
-        case 2:
-            averageSpeed = 50;
-            break;
-
-        case 3:
-            averageSpeed = 5;
-            break;
-
-        default:
-            averageSpeed = 0;
-            cout << "Invalid tranportation choice." << endl;
-            break;
-    }
+    averageSpeed = getSpeed(transportChoice);
 
     transport = getTransportName(transportChoice);
 
