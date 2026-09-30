@@ -114,6 +114,15 @@ int getMenuChoice()
         cout << "Enter your choice: ";
         cin >> choice;
 
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+        }
+
         if (choice >= 1 && choice <= 2)
         {
             return choice;
@@ -146,10 +155,27 @@ int getLocationChoice()
 {
     int choice;
 
-    cout << "Enter your choice: ";
-    cin >> choice;
+    while (true)
+    {
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    return choice;
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+        }
+
+        if (choice >= 1 && choice <= 4)
+        {
+            return choice;
+        }
+
+        cout << "Invalid location. Please enter 1 to 4." << endl;
+    }
 }
 
 
@@ -167,9 +193,27 @@ int getTransportChoice()
     cout << "3.Walking" << endl;
     cout << "\nEnter your choice(1-3): " << endl;
 
-    cin >> transportChoice;
+    while (true)
+    {
+        cout << "Enter your choice: ";
+        cin >> transportChoice;
 
-    return transportChoice;
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+        }
+
+        if (transportChoice >= 1 && transportChoice <= 3)
+        {
+            return transportChoice;
+        }
+
+        cout << "Invalid transport mode. Please enter 1 to 3." << endl;
+    }
 }
 
 
@@ -187,9 +231,27 @@ int getTrafficChoice()
     cout << "3.Heavy Traffic" << endl;
     cout << "\nEnter your choice(1-3): " << endl;
 
-    cin >> trafficChoice;
+    while (true)
+    {
+        cout << "Enter your choice: ";
+        cin >> trafficChoice;
 
-    return trafficChoice;
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+        }
+
+        if (trafficChoice >= 1 && trafficChoice <= 3)
+        {
+            return trafficChoice;
+        }
+
+        cout << "Invalid traffic condition. Please enter 1 to 3." << endl;
+    }
 }
 
 
@@ -485,11 +547,6 @@ void planRoute()
     trafficChoice = getTrafficChoice();
 
     traffic = getTrafficName(trafficChoice);
-
-    if (trafficChoice < 1 || trafficChoice > 3)
-    {
-        cout << "Invalid traffic condition." << endl;
-    }
 
 
     // RECOMMENDATION BASED ON TRAFFIC CONDITION
