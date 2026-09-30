@@ -10,13 +10,17 @@ using namespace std;
 
 void displayWelcome();
 void displayMenu();
+void displayLocations();
 
+int getLocationChoice();
 int getTransportChoice();
 int getTrafficChoice();
 
+double getDistance(int start, int destination);
 double calculateTravelTime(double distance, double averageSpeed);
 double adjustTravelTime(double estimatedTime, int trafficChoice);
 
+string getLocationName(int location);
 string getTransportName(int transportChoice);
 string getTrafficName(int trafficChoice);
 string getRecommendedRoute(int trafficChoice);
@@ -66,6 +70,35 @@ void displayMenu()
 
 
 // ========================================
+// Display Available Locations
+// ========================================
+
+void displayLocations()
+{
+    cout << "Available Locations:" << endl;
+    cout << "1. MMU Cyberjaya" << endl;
+    cout << "2. IOI City Mall" << endl;
+    cout << "3. Putrajaya" << endl;
+    cout << "4. KLCC" << endl;
+}
+
+
+// ========================================
+// Get Location Choice
+// ========================================
+
+int getLocationChoice()
+{
+    int choice;
+
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    return choice;
+}
+
+
+// ========================================
 // Get Transport Choice
 // ========================================
 
@@ -102,6 +135,32 @@ int getTrafficChoice()
     cin >> trafficChoice;
 
     return trafficChoice;
+}
+
+
+// ========================================
+// Get Location Name
+// ========================================
+
+string getLocationName(int location)
+{
+    switch (location)
+    {
+        case 1:
+            return "MMU Cyberjaya";
+
+        case 2:
+            return "IOI City Mall";
+
+        case 3:
+            return "Putrajaya";
+
+        case 4:
+            return "KLCC";
+
+        default:
+            return "Unknown";
+    }
 }
 
 
@@ -194,6 +253,74 @@ string getNavigationAdvice(int trafficChoice)
 
 
 // ========================================
+// Get Distance
+// Predefined distances simulate GPS data
+// ========================================
+
+double getDistance(int start, int destination)
+{
+    if (start == destination)
+    {
+        return 0.0;
+    }
+
+    // MMU Cyberjaya
+    if (start == 1)
+    {
+        if (destination == 2)
+            return 8.0;
+
+        if (destination == 3)
+            return 12.0;
+
+        if (destination == 4)
+            return 35.0;
+    }
+
+    // IOI City Mall
+    if (start == 2)
+    {
+        if (destination == 1)
+            return 8.0;
+
+        if (destination == 3)
+            return 6.0;
+
+        if (destination == 4)
+            return 28.0;
+    }
+
+    // Putrajaya
+    if (start == 3)
+    {
+        if (destination == 1)
+            return 12.0;
+
+        if (destination == 2)
+            return 6.0;
+
+        if (destination == 4)
+            return 30.0;
+    }
+
+    // KLCC
+    if (start == 4)
+    {
+        if (destination == 1)
+            return 35.0;
+
+        if (destination == 2)
+            return 28.0;
+
+        if (destination == 3)
+            return 30.0;
+    }
+
+    return 0.0;
+}
+
+
+// ========================================
 // Calculate Basic Travel Time
 // ========================================
 
@@ -228,10 +355,12 @@ double adjustTravelTime(double estimatedTime, int trafficChoice)
 
 void planRoute()
 {
-    double distance;
+    int start;
+    int destination;
     int transportChoice;
     int trafficChoice;
 
+    double distance;
     double averageSpeed;
     double estimatedTime;
 
@@ -241,10 +370,27 @@ void planRoute()
     string navigationAdvice;
 
 
-    // ASK FOR INPUT
+    // ASK FOR CURRENT LOCATION
 
-    cout << "\nEnter travel distance(km): " << endl;
-    cin >> distance;
+    cout << "\nCurrent Location" << endl;
+
+    displayLocations();
+
+    start = getLocationChoice();
+
+
+    // ASK FOR DESTINATION
+
+    cout << "\nDestination" << endl;
+
+    displayLocations();
+
+    destination = getLocationChoice();
+
+
+    // GET DISTANCE
+
+    distance = getDistance(start, destination);
 
 
     // ASK FOR TRANSPORTATION MODE
@@ -308,6 +454,8 @@ void planRoute()
     // PRINT INFORMATION
 
     cout << "\n========== GPS TRAVEL RESULT ==========" << endl;
+    cout << "From: " << getLocationName(start) << endl;
+    cout << "To: " << getLocationName(destination) << endl;
     cout << "Distance: " << distance << "km" << endl;
     cout << "Transportation: " << transport << endl;
     cout << "Traffic Condition: " << traffic << endl;
